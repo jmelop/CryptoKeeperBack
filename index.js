@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
+
 // Coonect to Database
 mongoose.connect('mongodb://localhost/cryptokeeper');
 
@@ -27,9 +28,11 @@ server.use(function (req, res, next) {
 
 server.use( cors( { origin : [''] } ) );
 
-//Resources Users
+server.use( express.json() );
 
-const userRouter = require( './resources/users/index');
-server.use('/users', userRouter);
+//Resources Crypto
+
+const cryptoRouter = require( './resources/crypto/index');
+server.use('/cryptos', cryptoRouter);
 
 server.listen(4000);
