@@ -2,7 +2,6 @@ var router = require('express').Router();
 
 const controller = require('./crypto.controller');
 
-
 // Section Cryptos
 
 // Get All Cryptos

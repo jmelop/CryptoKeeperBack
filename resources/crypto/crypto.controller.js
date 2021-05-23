@@ -11,69 +11,79 @@ module.exports = {
 
 // Function section
 
-function getAllCryptos(req, res){
+function getAllCryptos(req, res) {
     cryptoModel.find()
-    .then(response => {
-        console.log(response);
-        res.json(response);
-    })
+        .then(response => {
+            console.log(response);
+            res.json(response);
+        })
 };
 
-function getCrypto(req, res){
+function getCrypto(req, res) {
     let cryptoId = req.params.crypto;
 
-    cryptoModel.findOne({ crypto: cryptoId})
-    .then(response => {
+    cryptoModel.findOne({ crypto: cryptoId })
+        .then(response => {
 
-        console.log("Get crypto" + cryptoId);
-        res.json(response);
-    })
+            console.log("Get crypto" + cryptoId);
+            res.json(response);
+        }).catch((err) => {
+            console.log(err)
+        });
 }
 
-function addCrypto(req, res){
+function addCrypto(req, res) {
     let body = req.body;
 
-    cryptoModel.create({
+    cryptoModel.findOne({ crypto: body.crypto })
+        .then(u => {
+            if (u === null) {
+                cryptoModel.create({
 
-        "crypto": body.crypto,
-        "price": body.price,
-        "weekPriceChange": body.weekPriceChange,
-        "marketCap": body.marketCap
+                    "crypto": body.crypto,
+                    "price": body.price,
+                    "weekPriceChange": body.weekPriceChange,
+                    "marketCap": body.marketCap
 
-    }).then(response => {
+                }).then(response => {
 
-        console('Crypto added');
-        res.json(response);
+                    console('Crypto added');
+                    res.json(response);
 
-    }).catch(
-        
-        error => res.send(error));
-        
+                }).catch(
+
+                    error => res.send(error));
+            }
+            else {
+                res.send('Error, ya existe')
+            }
+        })
+
 }
 
-function updateCrypto(req, res){
+function updateCrypto(req, res) {
     let body = req.body;
     let cryptoId = req.params.crypto;
-    cryptoModel.updateOne({ crypto: cryptoId}, { $set: body }, { runValidators: true })
-    .then( response => {
+    cryptoModel.updateOne({ crypto: cryptoId }, { $set: body }, { runValidators: true })
+        .then(response => {
 
-        console.log("Updated Crypto "+cryptoId);
-        res.json(response)
-    })
+            console.log("Updated Crypto " + cryptoId);
+            res.json(response)
+        })
 }
 
-function deleteCrypto(req, res){
+function deleteCrypto(req, res) {
     let id = req.params.crypto;
 
     cryptoModel.deleteOne({ crypto: id })
-    .then( response => {
+        .then(response => {
 
-        console.log('Deleted crypto ' + id);
-        res.json(response);
-    })
+            console.log('Deleted crypto ' + id);
+            res.json(response);
+        })
 
 
-        
+
 }
 
 
