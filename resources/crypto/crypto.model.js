@@ -5,14 +5,23 @@ var cryptoSchema = mongoose.Schema({
     crypto: {
         type: String
     },
-    price: {
+    amount: {
         type: Number
     },
-    weekPriceChange: {
+    price: {
         type: String
     },
-    marketCap: {
-        type: Number
+    website: {
+        type: String
+    },
+    date: {
+        type: Date
+    },
+    operation: {
+        type: String
+    },
+    description: {
+        type: String
     }
 });
 

@@ -41,9 +41,12 @@ function addCrypto(req, res) {
                 cryptoModel.create({
 
                     "crypto": body.crypto,
+                    "amount": body.amount,
                     "price": body.price,
-                    "weekPriceChange": body.weekPriceChange,
-                    "marketCap": body.marketCap
+                    "website": body.website,
+                    "date": body.date,
+                    "operation": body.operation,
+                    "description": body.description
 
                 }).then(response => {
 
