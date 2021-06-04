@@ -3,16 +3,14 @@ const bcrypt = require("bcrypt");
 const authModel = require('./auth.model');
 
 module.exports = {
-    login
+    login, register
 }
 
 // Function section
 
 function login(req, res) {
     const { email, password } = req.body;
-    const user = req.body
-    console.log(req.body)
-
+    
     return authModel.findOne({ email: email })
         .then(r => {
 
