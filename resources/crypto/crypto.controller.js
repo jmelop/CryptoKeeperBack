@@ -35,33 +35,24 @@ function getCrypto(req, res) {
 function addCrypto(req, res) {
     let body = req.body;
 
-    cryptoModel.findOne({ crypto: body.crypto })
-        .then(u => {
-            if (u === null) {
-                cryptoModel.create({
+    cryptoModel.create({
 
-                    "crypto": body.crypto,
-                    "amount": body.amount,
-                    "price": body.price,
-                    "website": body.website,
-                    "date": body.date,
-                    "operation": body.operation,
-                    "description": body.description
+        "crypto": body.crypto,
+        "amount": body.amount,
+        "price": body.price,
+        "website": body.website,
+        "date": body.date,
+        "operation": body.operation,
+        "description": body.description
 
-                }).then(response => {
+    }).then(response => {
 
-                    console('Crypto added');
-                    res.json(response);
+        console('Crypto added');
+        res.json(response);
 
-                }).catch(
+    }).catch(
 
-                    error => res.send(error));
-            }
-            else {
-                res.send('Error, ya existe')
-            }
-        })
-
+        error => res.send(error));
 }
 
 function updateCrypto(req, res) {

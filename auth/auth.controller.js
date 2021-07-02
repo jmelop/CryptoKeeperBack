@@ -1,6 +1,7 @@
 const { response } = require('express');
 const bcrypt = require("bcrypt");
 const authModel = require('./auth.model');
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     login, register
@@ -10,7 +11,7 @@ module.exports = {
 
 function login(req, res) {
     const { email, password } = req.body;
-    
+
     return authModel.findOne({ email: email })
         .then(r => {
 
@@ -19,7 +20,15 @@ function login(req, res) {
             } else if (password !== r.password) {
                 res.status(404).send("Email o pasdword no válida");
             } else {
-                return res.json('OK')
+                const token = jwt.sign(
+                    { email: r.email, role: r.role },
+                    'fwñelfñfl'
+                );
+
+                return res.json({
+                    user: r,
+                    token: token
+                });
             }
 
         }).catch((err) => console.log(err))
@@ -37,10 +46,9 @@ function register(req, res) {
         'role': newUser.role
 
     }).then(response => {
-        res.json(response).catch(
-
-            error => res.send(error));
-    })
+        res.json(response)
+    }).catch(
+        error => res.send(error));
 }
 
 
