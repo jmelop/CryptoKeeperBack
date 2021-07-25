@@ -33,25 +33,20 @@ function getCrypto(req, res) {
 }
 
 function addCrypto(req, res) {
-    let body = req.body;
-
-    cryptoModel.create({
-
-        crypto: body.crypto,
-        amount: body.amount,
-        price: body.price,
-        website: body.website,
-        date: body.date,
-        operation: body.operation,
-        description: body.description
-
-    }).then(response => {
-
-        console('Crypto added');
-        res.json(response);
-
-    }).catch(
-        error => res.send(error));
+    var addCrypto = new cryptoModel(req.body);
+    var error = addCrypto.validateSync();
+    if (!error) {
+        addCrypto
+            .save()
+            .then((u) => {
+                res.json(u);
+            })
+            .catch((err) => res.status(500).json(err));
+    } else {
+        if (error.errors.body) {
+            res.status(404).send("The body is empty");
+        }
+    }
 }
 
 function updateCrypto(req, res) {
