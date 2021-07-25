@@ -19,7 +19,6 @@ var cryptoSchema = mongoose.Schema({
     },
     website: {
         type: String,
-        minLength: [2, "Website name too short"],
         maxLength: [15, "Website name too large"],
     },
     date: {
@@ -33,7 +32,6 @@ var cryptoSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        minLength: [2, "The description is too short"],
         maxLength: [1500, "The description is too large"],
     }
 });

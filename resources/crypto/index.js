@@ -10,7 +10,7 @@ router.get( '/', controller.getAllCryptos),
 
 // Get Crypto
 
-router.get( '/:crypto', controller.getCrypto),
+router.get( '/:id', controller.getCrypto),
 
 // Add crypto
 
@@ -18,10 +18,10 @@ router.post( '/', controller.addCrypto),
 
 // Update crypto
 
-router.patch( '/:crypto', controller.updateCrypto),
+router.patch( '/:id', controller.updateCrypto),
 
 // Delete crypto
 
-router.delete( '/:crypto', controller.deleteCrypto)
+router.delete( '/:id', controller.deleteCrypto)
 
 module.exports = router;

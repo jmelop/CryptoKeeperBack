@@ -1,4 +1,4 @@
-const { response } = require('express');
+var mongoose = require("mongoose");
 const cryptoModel = require('./crypto.model');
 
 module.exports = {
@@ -51,30 +51,33 @@ function addCrypto(req, res) {
         res.json(response);
 
     }).catch(
-
         error => res.send(error));
 }
 
 function updateCrypto(req, res) {
-    let body = req.body;
-    let cryptoId = req.params.crypto;
-    cryptoModel.updateOne({ crypto: cryptoId }, { $set: body }, { runValidators: true })
-        .then(response => {
-
-            console.log("Updated Crypto " + cryptoId);
-            res.json(response)
-        })
+    let cryptoId = mongoose.Types.ObjectId.isValid(req.params.id);
+    if (cryptoId) {
+        cryptoModel.findByIdAndUpdate(req.params.id, req.body)
+            .then((u) => {
+                res.json(u);
+            })
+            .catch((err) => res.status(500).json(err));
+    } else {
+        res.status(404).send("That crypto does not exist");
+    }
 }
 
 function deleteCrypto(req, res) {
-    let id = req.params.crypto;
-
-    cryptoModel.deleteOne({ crypto: id })
-        .then(response => {
-
-            console.log('Deleted crypto ' + id);
-            res.json(response);
-        })
+    let cryptoId = mongoose.Types.ObjectId.isValid(req.params.id);
+    if (cryptoId) {
+        cryptoModel.findByIdAndDelete(req.params.id)
+            .then((u) => {
+                res.json(u);
+            })
+            .catch((err) => res.status(500).json(err));
+    } else {
+        res.status(404).send("That crypto does not exist");
+    }
 
 
 
