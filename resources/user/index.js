@@ -12,10 +12,6 @@ router.get( '/', controller.getAllUsers),
 
 router.get( '/:user', controller.getUser),
 
-// Add User
-
-router.post( '/', controller.addUser),
-
 // Update User
 
 router.patch( '/:user', controller.updateUser),

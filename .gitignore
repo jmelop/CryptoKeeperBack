@@ -1,2 +1,4 @@
 /node_modules
 **/.env
+resources/auth/auth.controller.js
+TOKEN_PASSWORD=

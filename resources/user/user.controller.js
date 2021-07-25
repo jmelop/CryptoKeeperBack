@@ -4,7 +4,6 @@ const userModel = require('./user.model');
 module.exports = {
     getAllUsers: getAllUsers,
     getUser: getUser,
-    addUser: addUser,
     updateUser: updateUser,
     deleteUser: deleteUser
 }
@@ -30,35 +29,6 @@ function getUser(req, res) {
         }).catch((err) => {
             console.log(err)
         });
-}
-
-function addUser(req, res) {
-    let body = req.body;
-
-    userModel.findOne({ user: body.email })
-        .then(u => {
-            if (u === null) {
-                userModel.create({
-
-                    "name": body.name,
-                    "email": body.email,
-                    "password": body.password,
-                    "role": body.role
-
-                }).then(response => {
-
-                    console('Crypto added');
-                    res.json(response);
-
-                }).catch(
-
-                    error => res.send(error));
-            }
-            else {
-                res.send('Error, ya existe')
-            }
-        })
-
 }
 
 function updateUser(req, res) {
