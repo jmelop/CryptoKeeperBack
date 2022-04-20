@@ -51,9 +51,6 @@ function deleteUser(req, res) {
             console.log('Deleted User ' + id);
             res.json(response);
         })
-
-
-
 }
 
 
