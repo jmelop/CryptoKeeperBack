@@ -3,7 +3,8 @@ const cryptoDataModel = require('./cryptodata.model');
 
 module.exports = {
     getAllCryptos: getAllCryptos,
-    getCrypto: getCrypto
+    getCrypto: getCrypto,
+    addCrypto: addCrypto
 }
 
 // Function section
@@ -27,4 +28,21 @@ function getCrypto(req, res) {
         }).catch((err) => {
             console.log(err)
         });
+}
+
+function addCrypto(req, res) {
+    var addCrypto = new cryptoDataModel(req.body);
+    var error = addCrypto.validateSync();
+    if (!error) {
+        addCrypto
+            .save()
+            .then((u) => {
+                res.json(u);
+            })
+            .catch((err) => res.status(500).json(err));
+    } else {
+        if (error.errors.body) {
+            res.status(404).send("The body is empty");
+        }
+    }
 }

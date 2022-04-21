@@ -11,4 +11,8 @@ router.get( '/', controller.getAllCryptos);
 
 router.get( '/:cryptodata', controller.getCrypto);
 
+// Add crypto
+
+router.post( '/', controller.addCrypto);
+
 module.exports = router;
