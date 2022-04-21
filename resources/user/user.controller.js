@@ -44,13 +44,9 @@ function updateUser(req, res) {
 
 function deleteUser(req, res) {
     let id = req.params.email;
-
     userModel.deleteOne({ user: id })
         .then(response => {
-
             console.log('Deleted User ' + id);
             res.json(response);
         })
 }
-
-

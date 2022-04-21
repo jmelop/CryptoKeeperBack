@@ -73,9 +73,4 @@ function deleteCrypto(req, res) {
     } else {
         res.status(404).send("That crypto does not exist");
     }
-
-
-
 }
-
-

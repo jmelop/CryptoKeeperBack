@@ -34,9 +34,7 @@ function login(req, res) {
                     });
                 }
             }
-
         }).catch((err) => console.log(err))
-
 }
 
 function register(req, res) {
@@ -44,14 +42,11 @@ function register(req, res) {
     var error = newUser.validateSync();
     if (!error) {
         let passwordHash = bcrypt.hashSync(newUser.password, 4);
-
         authModel.create({
-
             name: newUser.name,
             email: newUser.email,
             password: passwordHash,
             role: newUser.role
-
         }).then(response => {
             res.json(response)
         }).catch((err) => {
@@ -62,14 +57,8 @@ function register(req, res) {
             }
         })
     } else {
-
         if (error.errors.email) {
             res.status(403).send("Email not valid");
         }
-
     }
-
 }
-
-
-

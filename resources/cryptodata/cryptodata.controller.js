@@ -20,18 +20,11 @@ function getAllCryptos(req, res) {
 
 function getCrypto(req, res) {
     let cryptoId = req.params.crypto;
-
     cryptoDataModel.findOne({ crypto: cryptoId })
         .then(response => {
-
             console.log("Get crypto" + cryptoId);
             res.json(response);
         }).catch((err) => {
             console.log(err)
         });
 }
-
-
-
-
-

@@ -2,13 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-
 // Coonect to Database
 mongoose.connect('mongodb://localhost/cryptokeeper');
 
 const server = express();
 server.use(function (req, res, next) {
-
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
 

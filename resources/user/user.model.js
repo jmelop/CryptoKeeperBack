@@ -1,7 +1,5 @@
-    const mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
-
     name: {
         type: String,
         minLength: [2, "Name too short"],

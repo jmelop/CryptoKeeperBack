@@ -13,7 +13,7 @@ var cryptoSchema = mongoose.Schema({
         required: [true, "The amount is required"],
     },
     price: {
-        type: String,
+        type: Number,
         required: [true, "The price is required"],
         maxLength: [100, "The number is too large"],
     },
