@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var cryptoDataSchema = mongoose.Schema({
+var cryptoTypeSchema = mongoose.Schema({
 
     name: {
         type: String,
@@ -16,6 +16,6 @@ var cryptoDataSchema = mongoose.Schema({
     }
 });
 
-var cryptodata = mongoose.model('cryptodatas', cryptoDataSchema);
+var cryptotype = mongoose.model('cryptotype', cryptoTypeSchema);
 
-module.exports = cryptodata;
+module.exports = cryptotype;

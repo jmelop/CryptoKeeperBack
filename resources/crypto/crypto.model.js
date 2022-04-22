@@ -22,7 +22,7 @@ var cryptoSchema = mongoose.Schema({
         maxLength: [15, "Website name too large"],
     },
     date: {
-        type: Date,
+        type: String,
         required: [true, "The date is required"],
     },
     operation: {

@@ -1,16 +1,16 @@
 const { response } = require('express');
-const cryptoDataModel = require('./cryptodata.model');
+const cryptoTypeModel = require('./cryptotype.model');
 
 module.exports = {
-    getAllCryptos: getAllCryptos,
-    getCrypto: getCrypto,
-    addCrypto: addCrypto
+    getAllCryptoTypes: getAllCryptoTypes,
+    getCryptoType: getCryptoType,
+    addCryptoType: addCryptoType
 }
 
 // Function section
 
-function getAllCryptos(req, res) {
-    cryptoDataModel.find()
+function getAllCryptoTypes(req, res) {
+    cryptoTypeModel.find()
         .then(response => {
             console.log(response);
             res.json(response);
@@ -19,22 +19,22 @@ function getAllCryptos(req, res) {
         });
 };
 
-function getCrypto(req, res) {
+function getCryptoType(req, res) {
     let cryptoId = req.params.crypto;
-    cryptoDataModel.findOne({ crypto: cryptoId })
+    cryptoTypeModel.findOne({ crypto: cryptoId })
         .then(response => {
-            console.log("Get crypto" + cryptoId);
+            console.log("Get crypto type" + cryptoId);
             res.json(response);
         }).catch((err) => {
             console.log(err)
         });
 }
 
-function addCrypto(req, res) {
-    var addCrypto = new cryptoDataModel(req.body);
-    var error = addCrypto.validateSync();
+function addCryptoType(req, res) {
+    var addCryptoType = new cryptoTypeModel(req.body);
+    var error = addCryptoType.validateSync();
     if (!error) {
-        addCrypto
+        addCryptoType
             .save()
             .then((u) => {
                 res.json(u);

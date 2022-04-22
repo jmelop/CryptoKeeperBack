@@ -31,11 +31,11 @@ server.use( express.json() );
 //Resources Crypto
 
 const cryptoRouter = require( './resources/crypto/index');
-const cryptoDataRouter = require( './resources/cryptodata/index');
+const cryptoTypeRouter = require( './resources/cryptotype/index');
 const userRouter = require( './resources/user/index');
 const authRouter = require('./resources/auth/auth.router');
 server.use('/cryptos', cryptoRouter);
-server.use('/cryptodata', cryptoDataRouter);
+server.use('/cryptotype', cryptoTypeRouter);
 server.use('/users', userRouter);
 server.use("/", authRouter);
 
