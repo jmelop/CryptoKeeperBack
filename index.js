@@ -30,10 +30,10 @@ server.use( express.json() );
 
 //Resources Crypto
 
-const cryptoRouter = require( './resources/crypto/index');
-const cryptoTypeRouter = require( './resources/cryptotype/index');
-const userRouter = require( './resources/user/index');
-const authRouter = require('./resources/auth/auth.router');
+const cryptoRouter = require( './resources/api/crypto/index');
+const cryptoTypeRouter = require( './resources/api/cryptotype/index');
+const userRouter = require( './resources/api/user/index');
+const authRouter = require('./resources/api/auth/auth.router');
 server.use('/cryptos', cryptoRouter);
 server.use('/cryptotype', cryptoTypeRouter);
 server.use('/users', userRouter);

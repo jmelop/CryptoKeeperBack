@@ -14,18 +14,14 @@ module.exports = {
 function getAllCryptos(req, res) {
     cryptoModel.find()
         .then(response => {
-            console.log(response);
             res.json(response);
         })
 };
 
 function getCrypto(req, res) {
     let cryptoId = req.params.crypto;
-
     cryptoModel.findOne({ crypto: cryptoId })
         .then(response => {
-
-            console.log("Get crypto" + cryptoId);
             res.json(response);
         }).catch((err) => {
             console.log(err)

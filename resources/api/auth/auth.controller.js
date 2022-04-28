@@ -11,25 +11,22 @@ module.exports = {
 
 function login(req, res) {
     const { email, password } = req.body;
-
     return authModel.findOne({ email: email })
-        .then(r => {
-
-            if (!r) {
+        .then(userLogged => {
+            if (!userLogged) {
                 res.status(404).send("There is not any user with that email")
-            } else if (r.password == null) {
+            } else if (userLogged.password == null) {
                 res.status(404).send("Email o pasdword no válida");
             } else {
-                if (!bcrypt.compareSync(password, r.password)) {
+                if (!bcrypt.compareSync(password, userLogged.password)) {
                     res.status(404).send("Email o pasdword no válida");
                 } else {
                     const token = jwt.sign(
-                        { email: r.email },
+                        { email: userLogged.email },
                         process.env.TOKEN_PASSWORD
                     );
-
                     return res.json({
-                        user: r,
+                        user: userLogged,
                         token: token
                     });
                 }
