@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
     name: {
         type: String,
-        minLength: [2, "Name too short"],
-        maxLength: [15, "Name too large"],
+        minLength: [2, "The name is too short"],
+        maxLength: [15, "The name is too large"],
         required: [true, "The name is required"]
     },
     email: {
@@ -15,11 +15,11 @@ var userSchema = mongoose.Schema({
             },
             message: "Enter a valid email",
         },
-        required: [true, "Email required"],
+        required: [true, "The email is required"],
     },
     password: {
         type: String,
-        required: [true, "Password required"],
+        required: [true, "The password is required"],
     },
     role: {
         type: String,

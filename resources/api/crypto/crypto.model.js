@@ -1,11 +1,10 @@
-    const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 var cryptoSchema = mongoose.Schema({
-
     crypto: {
         type: String,
-        minLength: [2, "Name too short"],
-        maxLength: [10, "Name too large"],
+        minLength: [2, "The name is too short"],
+        maxLength: [10, "The name is too large"],
         required: [true, "Cryptocurrency name is required"]
     },
     amount: {
@@ -19,7 +18,7 @@ var cryptoSchema = mongoose.Schema({
     },
     website: {
         type: String,
-        maxLength: [15, "Website name too large"],
+        maxLength: [15, "The website name is too large"],
     },
     date: {
         type: String,

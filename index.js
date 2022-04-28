@@ -1,8 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const rateLimit = require('express-rate-limit');
 
-// Coonect to Database
+// Limit repeated requests
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Connect to Database
 mongoose.connect('mongodb://localhost/cryptokeeper');
 
 const server = express();
@@ -28,7 +37,11 @@ server.use( cors( { origin : [''] } ) );
 
 server.use( express.json() );
 
-//Resources Crypto
+// Limiter
+
+server.use(limiter);
+
+// Resources Crypto
 
 const cryptoRouter = require( './resources/api/crypto/index');
 const cryptoTypeRouter = require( './resources/api/cryptotype/index');

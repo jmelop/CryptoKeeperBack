@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
 var authSchema = mongoose.Schema({
-
     name: {
         type: String,
-        minLength: [2, "Name too short"],
-        maxLength: [100, "Name too large"],
+        minLength: [2, "The name is too short"],
+        maxLength: [100, "The name is too large"],
     },
     email: {
         type: String,
