@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 const cryptoModel = require('./crypto.model');
+const cryptoTypeModel = require('../cryptotype/cryptotype.model');
 
 module.exports = {
     getAllCryptos: getAllCryptos,
@@ -24,25 +25,31 @@ function getCrypto(req, res) {
         .then(response => {
             res.json(response);
         }).catch((err) => {
-            console.log(err)
+            console.log(err);
         });
 }
 
 function addCrypto(req, res) {
     var addCrypto = new cryptoModel(req.body);
-    var error = addCrypto.validateSync();
-    if (!error) {
-        addCrypto
-            .save()
-            .then((u) => {
-                res.json(u);
-            })
-            .catch((err) => res.status(500).json(err));
-    } else {
-        if (error.errors.body) {
-            res.status(404).send("The body is empty");
+    cryptoTypeModel.findOne({ shortname: req.body.crypto }).then(response => {
+        var error = addCrypto.validateSync();
+        if (!error && response) {
+            addCrypto
+                .save()
+                .then((u) => {
+                    res.json(u);
+                })
+                .catch((err) => res.status(500).json(err));
+        } else if (!response) {
+            res.status(404).send("That crypto doesn't exist");
+        } else {
+            if (error.errors.body) {
+                res.status(404).send("The body is empty");
+            }
         }
-    }
+    }).catch((err) => {
+        console.log(err);
+    });
 }
 
 function updateCrypto(req, res) {

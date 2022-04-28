@@ -11,7 +11,8 @@ var cryptoTypeSchema = mongoose.Schema({
         type: String,
         minLength: [2, "The shortname too short"],
         maxLength: [4, "The shortname is too large"],
-        required: [true, "The shortname is required"]
+        required: [true, "The shortname is required"],
+        unique: true
     }
 });
 
