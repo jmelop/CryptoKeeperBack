@@ -19,7 +19,6 @@ function getAllUsers(req, res) {
 
 function getUser(req, res) {
     let userId = req.params.email;
-
     userModel.findOne({ user: userId })
         .then(response => {
             res.json(response);

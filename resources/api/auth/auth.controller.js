@@ -8,7 +8,6 @@ module.exports = {
 }
 
 // Function section
-
 function login(req, res) {
     const { email, password } = req.body;
     return authModel.findOne({ email: email })

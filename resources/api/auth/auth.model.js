@@ -19,7 +19,9 @@ var authSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "Password required"],
+        minLength: [6, "The password is too short"],
+        maxLength: [300, "The password is too large"],
+        required: [true, "Password required"]
     },
     role: {
         type: String,
