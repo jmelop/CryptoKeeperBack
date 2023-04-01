@@ -12,15 +12,15 @@ router.get( '/', checkAuth, controller.getAllCryptos);
 
 router.get( '/:id', checkAuth, controller.getCrypto);
 
-// Add crypto
+// Add Crypto
 
 router.post( '/', checkAuth, controller.addCrypto);
 
-// Update crypto
+// Update Crypto
 
 router.patch( '/:id', checkAuth, controller.updateCrypto);
 
-// Delete crypto
+// Delete Crypto
 
 router.delete( '/:id', checkAuth, controller.deleteCrypto);
 
