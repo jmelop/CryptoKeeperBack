@@ -12,7 +12,12 @@ const limiter = rateLimit({
 })
 
 // Connect to Database
-mongoose.connect('mongodb://localhost/cryptokeeper');
+mongoose.connect('mongodb://0.0.0.0:27017/cryptokeeper', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log('Database connected successfully'))
+.catch(err => console.error('Database connection error:', err));
 
 const server = express();
 server.use(function (req, res, next) {
@@ -52,4 +57,6 @@ server.use('/cryptotype', cryptoTypeRouter);
 server.use('/users', userRouter);
 server.use("/", authRouter);
 
-server.listen(4000);
+server.listen(4000, () => {
+    console.log('Server is running on http://localhost:4000');
+});
