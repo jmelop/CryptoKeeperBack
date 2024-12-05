@@ -43,11 +43,9 @@ server.use( cors( { origin : [''] } ) );
 server.use( express.json() );
 
 // Limiter
-
 server.use(limiter);
 
 // Resources Crypto
-
 const cryptoRouter = require( './resources/api/crypto/index');
 const cryptoTypeRouter = require( './resources/api/cryptotype/index');
 const userRouter = require( './resources/api/user/index');
