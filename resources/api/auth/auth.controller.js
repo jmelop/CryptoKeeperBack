@@ -58,7 +58,7 @@ function register(req, res) {
     })
     .then((response) => {
       res.status(201).json({
-        success: true,
+        success: 'OK',
         message: "User created successfully",
         data: response,
       });
@@ -71,7 +71,7 @@ function register(req, res) {
         : "Server error";
 
       res.status(status).json({
-        success: false,
+        success: 'KO',
         message,
         error: isDuplicateEmail ? null : err,
       });
