@@ -11,29 +11,65 @@ module.exports = {
 // Function section
 function login(req, res) {
   const { email, password } = req.body;
-  return authModel
-    .findOne({ email: email })
+
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "Email and password are required",
+    });
+  }
+
+  authModel
+    .findOne({ email })
     .then((userLogged) => {
       if (!userLogged) {
-        res.status(404).send("There is not any user with that email");
-      } else if (userLogged.password == null) {
-        res.status(404).send("Email o pasdword no válida");
-      } else {
-        if (!bcrypt.compareSync(password, userLogged.password)) {
-          res.status(404).send("Email o pasdword no válida");
-        } else {
-          const token = jwt.sign(
-            { email: userLogged.email },
-            process.env.TOKEN_PASSWORD
-          );
-          return res.json({
-            user: userLogged,
-            token: token,
-          });
-        }
+        return res.status(404).json({
+          success: false,
+          message: "No user found with that email",
+        });
       }
+
+      if (!userLogged.password) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid email or password",
+        });
+      }
+
+      const isPasswordValid = bcrypt.compareSync(password, userLogged.password);
+      if (!isPasswordValid) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid email or password",
+        });
+      }
+
+      const token = jwt.sign(
+        { email: userLogged.email, id: userLogged._id },
+        process.env.TOKEN_PASSWORD,
+        { expiresIn: "1h" }
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        user: {
+          id: userLogged._id,
+          name: userLogged.name,
+          email: userLogged.email,
+          role: userLogged.role,
+        },
+        token,
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.error("Error during login:", err);
+      res.status(500).json({
+        success: false,
+        message: "Server error",
+        error: err,
+      });
+    });
 }
 
 function register(req, res) {
